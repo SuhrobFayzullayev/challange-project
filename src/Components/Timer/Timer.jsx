@@ -3,7 +3,7 @@ import React from "react";
 
 export default function Timer() {
   return (
-    <Box mt={2}> 
+    <Box mt={1}> 
       <Box
         sx={{
           display: "flex",
@@ -11,10 +11,10 @@ export default function Timer() {
           alignItems: "flex-end",
         }}
       >
-        <Typography variant="h2" component="div">
+        <Typography variant="h3" component="div">
           2
         </Typography>
-        <Typography variant="h4" mb={0.7} ml={0.5} component="div">
+        <Typography variant="h5" mb={0.7} ml={0.5} component="div">
           /10
         </Typography>
       </Box>
@@ -25,7 +25,7 @@ export default function Timer() {
           alignItems: "flex-end",
         }}
       >
-        <Typography variant="h4" mb={0.7} ml={0.5} component="div">
+        <Typography variant="h5" mb={0.7} ml={0.5} component="div">
           19 : 13 : 47 : 45
         </Typography>
       </Box>

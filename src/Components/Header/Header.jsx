@@ -98,7 +98,7 @@ export default function Header() {
                   <NotificationsIcon />
                 </Badge>
               </IconButton>
-              <Avatar alt="S" src="/static/images/avatar/2.jpg" />
+              <Avatar src="" children="S" />
               <Typography variant="h6" component="div" mx={1}>
                 Suhrob
               </Typography>
