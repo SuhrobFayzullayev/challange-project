@@ -6,6 +6,7 @@ import DailyTournament from "./Pages/ActiveUser/DailyTournament/DailyTournament"
 import Home from "./Pages/ActiveUser/Home";
 import Question from "./Pages/ActiveUser/Question";
 import Tournament from "./Pages/ActiveUser/Tournament";
+import Admin from "./Pages/Admin/Admin";
 import SignIn from "./Pages/Auth/SignIn";
 import SignUp from "./Pages/Auth/SignUp";
 import InActiveUser from "./Pages/InAvtiveUser";
@@ -25,6 +26,7 @@ function App() {
           <Route path="/user/tournament" element={<Tournament />} />
           <Route path="/user/daily-tournament" element={<DailyTournament />} />
         </Route>
+        <Route path="/admin" element={<Admin />} />
       </Routes>
     </div>
   );
