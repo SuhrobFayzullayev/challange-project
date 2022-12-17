@@ -11,14 +11,22 @@
   "dependencies": {
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
+    "@fontsource/roboto": "^4.5.8",
     "@mui/icons-material": "^5.11.0",
     "@mui/material": "^5.11.0",
     "@mui/styled-engine-sc": "^5.11.0",
+    "@mui/x-date-pickers": "^5.0.11",
     "antd": "^5.0.7",
+<<<<<<< HEAD
     "axios": "^1.2.1",
+=======
+    "antd-img-crop": "^4.5.2",
+>>>>>>> a983a14ffedaddedb1357766af28449ce8288e85
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-highlight-words": "^0.18.0",
     "react-router-dom": "^6.4.5",
+    "react-syntax-highlighter": "^15.5.0",
     "sass": "^1.56.2",
     "styled-components": "^5.3.6"
   },
