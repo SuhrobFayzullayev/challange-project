@@ -26,7 +26,7 @@ export default function Timer() {
         }}
       >
         <Typography variant="h5" mb={0.7} ml={0.5} component="div">
-          19 : 13 : 47 : 45
+          18 : 13 : 47 : 45
         </Typography>
       </Box>
     </Box>
