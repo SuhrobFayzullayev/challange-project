@@ -20,10 +20,9 @@ export default function SignUp() {
         .then((res) => {
           if (res.status === 201) {
             
-            console.log(res);
             localStorage.setItem("token", res.data.data.jwt)
             localStorage.setItem("user", JSON.stringify(res.data.data))
-            navigate("/user")
+            window.location.reload()
 
           }else {
             alert(res.data.message)

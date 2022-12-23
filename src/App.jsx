@@ -14,47 +14,46 @@ import SignIn from "./Pages/Auth/SignIn";
 import SignUp from "./Pages/Auth/SignUp";
 import InActiveUser from "./Pages/InAvtiveUser";
 function App() {
-  const [userRole, setUserRole] = useState([]);
+  const token = localStorage.getItem("token");
+  const userRole = JSON.parse(localStorage.getItem("user"));
 
-  useEffect(() => {
-    if (localStorage.getItem("user")) {
-      setUserRole(localStorage.getItem("user"));
-    }
-  });
-  console.log(userRole);
+  console.log(userRole, "Bu userRole");
   return (
     <div className="App">
       <CssBaseline />
-      <Routes>
-        {(!userRole?.username && (
-          <>
-            <Route path="/" element={<InActiveUser />} />
-            <Route path="/auth/login" element={<SignIn />} />
-            <Route path="/auth/register" element={<SignUp />} />
-          </>
-        )) || (
-          <>
-            {userRole?.username == "admin" ? (
-              <Route path="" element={<AdminLayout />}>
-                <Route path="/dashboard" element={<Dashboard />} />
-                <Route path="/dashboard/todo" element={<ToDo />} />
-                <Route path="/dashboard/question" element={<Questions />} />
-                <Route path="/" element={ <Navigate to={"/dashboard"}/>} />
-              </Route>
-            ) : (
-              <Route path="" element={<Layout />}>
-                <Route path="/user" element={<Home />} />
-                <Route path="/user/question" element={<Question />} />
-                <Route path="/user/tournament" element={<Tournament />} />
-                <Route
-                  path="/user/daily-tournament"
-                  element={<DailyTournament />}
-                />
-              </Route>
-            )}
-          </>
-        )}
-      </Routes>
+
+      {token === null  ? (
+        <Routes>
+          <Route path="/" element={<InActiveUser />} />
+          <Route path="/auth/login" element={<SignIn />} />
+          <Route path="/auth/register" element={<SignUp />} />
+          <Route path="*" element={<Navigate to={"/"} />} />
+        </Routes>
+      ) : userRole?.userRole === "USER" && token !== null ?  (
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route path="/user" element={<Home />} />
+            <Route path="/user/question" element={<Question />} />
+            <Route path="/user/tournament" element={<Tournament />} />
+            <Route
+              path="/user/daily-tournament"
+              element={<DailyTournament />}
+            />
+          </Route>
+          <Route path="*" element={<Navigate to={"/user"} />} />
+        </Routes>
+      ) : userRole?.userRole === "ADMIN" && token !== null ? (
+
+        <Routes>
+          <Route path="" element={<AdminLayout />}>
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/dashboard/todo" element={<ToDo />} />
+            <Route path="/dashboard/question" element={<Questions />} />
+            <Route path="*" element={<Navigate to={"/dashboard"} />} />
+          </Route>
+        </Routes>
+      ): null}
+
     </div>
   );
 }

@@ -2,10 +2,9 @@ import { Box, Grid, Typography } from "@mui/material";
 import { Button, Form, Input } from "antd";
 import axios from "axios";
 import React from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 export default function SignIn() {
-  const navigate = useNavigate()
   const onFinish = (values) => {
     const data = {
       email: values.email,
@@ -19,7 +18,7 @@ export default function SignIn() {
 
           localStorage.setItem("token", res.data.data.jwt)
           localStorage.setItem("user", JSON.stringify(res.data.data.user) )
-          navigate("/user")
+          window.location.reload()
          }else{
           console.log(res.data.message);
          }
