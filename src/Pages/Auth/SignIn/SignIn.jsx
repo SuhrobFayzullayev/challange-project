@@ -5,7 +5,7 @@ import React from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 
 export default function SignIn() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const onFinish = (values) => {
     const data = {
       email: values.email,
@@ -15,14 +15,15 @@ export default function SignIn() {
     axios
       .post("https://challange.onrender.com/api/v1/auth/login", data)
       .then((res) => {
-         if(res.status === 200){
-
-          localStorage.setItem("token", res.data.data.jwt)
-          localStorage.setItem("user", JSON.stringify(res.data.data.user) )
-          navigate("/user")
-         }else{
+        let arr = [];
+        arr.push(res.data.data);
+        if (res.status === 200) {
+          localStorage.setItem("token", res.data.data.jwt);
+          localStorage.setItem("user", JSON.stringify(arr));
+          navigate("/user");
+        } else {
           console.log(res.data.message);
-         }
+        }
       });
   };
 
