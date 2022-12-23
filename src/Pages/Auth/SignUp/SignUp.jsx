@@ -17,7 +17,6 @@ export default function SignUp() {
     console.log("Failed:", errorInfo);
   };
 
-  console.log(data);
   return (
     <Box sx={{ backgroundColor: "aqua", height: "100vh", padding:"70px 30px" }}>
       <Typography
