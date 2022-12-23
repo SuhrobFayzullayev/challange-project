@@ -14,14 +14,15 @@ export default function SignIn() {
     axios
       .post("https://challange.onrender.com/api/v1/auth/login", data)
       .then((res) => {
-         if(res.status === 200){
+        console.log(res);
 
-          localStorage.setItem("token", res.data.data.jwt)
-          localStorage.setItem("user", JSON.stringify(res.data.data.user) )
-          window.location.reload()
-         }else{
+        if (res.status === 200) {
+          localStorage.setItem("token", res.data.data.jwt);
+          localStorage.setItem("user", JSON.stringify(res.data.data.user));
+          window.location.reload();
+        } else {
           console.log(res.data.message);
-         }
+        }
       });
   };
 

@@ -45,7 +45,7 @@ function App() {
       ) : userRole?.userRole === "ADMIN" && token !== null ? (
 
         <Routes>
-          <Route path="" element={<AdminLayout />}>
+          <Route element={<AdminLayout />}>
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/dashboard/todo" element={<ToDo />} />
             <Route path="/dashboard/question" element={<Questions />} />

@@ -6,6 +6,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DesktopDatePicker } from "@mui/x-date-pickers";
 import { Box, Grid, Typography } from "@mui/material";
+import axios from "axios";
 
 const initialState = {
   day: "",
@@ -31,10 +32,7 @@ export default function Dashboard() {
     hour: minDate.getHours(),
   };
 
-  console.log(minDate);
-
   const handleChange = (newValue) => {
-    console.log(newValue);
     setValue(newValue);
     setCalendar({
       day: newValue.$D,
@@ -44,16 +42,26 @@ export default function Dashboard() {
       second: date.second,
       hour: date.hour,
     });
+
+    const getCalendarUrl = "https://challange.onrender.com/api/v1/calendars" 
+    try {
+      axios.get(getCalendarUrl).then(res => console.log(res.data))
+    } catch (error) {
+      
+    }
+    axios.get(getCalendarUrl)
   };
 
-  console.log(calendar);
 
-  console.log(new Date());
 
   return (
     <div>
       <Box>
-        <Typography variant="h4" component={"h4"} sx={{ textAlign: "center", mt:4 }}>
+        <Typography
+          variant="h4"
+          component={"h4"}
+          sx={{ textAlign: "center", mt: 4 }}
+        >
           Select a calendar
         </Typography>
         <Grid container justifyContent={"center"} mt={8}>
