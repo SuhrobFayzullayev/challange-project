@@ -24,6 +24,8 @@ export default function SignUp() {
             localStorage.setItem("user", JSON.stringify(res.data.data))
             window.location.reload()
 
+            
+            navigate("/auth/login")
           }else {
             alert(res.data.message)
           }

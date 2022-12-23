@@ -17,7 +17,7 @@ function App() {
   const token = localStorage.getItem("token");
   const userRole = JSON.parse(localStorage.getItem("user"));
 
-  console.log(userRole, "Bu userRole");
+  console.log(userRole , "Bu userRole");
   return (
     <div className="App">
       <CssBaseline />
@@ -29,7 +29,7 @@ function App() {
           <Route path="/auth/register" element={<SignUp />} />
           <Route path="*" element={<Navigate to={"/"} />} />
         </Routes>
-      ) : userRole?.userRole === "USER" && token !== null ?  (
+      ) : userRole?.userRole === "USER" &&  token !== null ?  (
         <Routes>
           <Route path="/" element={<Layout />}>
             <Route path="/user" element={<Home />} />
