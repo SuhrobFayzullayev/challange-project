@@ -1,16 +1,34 @@
 import { Box, Grid, Typography } from "@mui/material";
 import { Button, Form, Input } from "antd";
+import axios from "axios";
 import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
-
-
+import { NavLink, useNavigate } from "react-router-dom";
 
 export default function SignUp() {
+  const [data, setData] = useState({});
 
-  const [data, setData] = useState({})
+  const navigate = useNavigate()
 
   const onFinish = (values) => {
-    setData(values)
+      const data = {
+        username: values.username,
+        email: values.email,
+        password: values.password,
+      };
+      axios
+        .post("https://challange.onrender.com/api/v1/auth/register", data)
+        .then((res) => {
+          if (res.status === 201) {
+            
+            console.log(res);
+            localStorage.setItem("token", res.data.data.jwt)
+            localStorage.setItem("user", JSON.stringify(res.data.data))
+            navigate("/user")
+
+          }else {
+            alert(res.data.message)
+          }
+        });
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -19,13 +37,15 @@ export default function SignUp() {
 
   console.log(data);
   return (
-    <Box sx={{ backgroundColor: "aqua", height: "100vh", padding:"70px 30px" }}>
+    <Box
+      sx={{ backgroundColor: "aqua", height: "100vh", padding: "70px 30px" }}
+    >
       <Typography
         sx={{ textAlign: "center", color: "black", fontWeight: "600" }}
         variant="h4"
         component={"h4"}
       >
-        Register  🖊
+        Register 🖊
       </Typography>
       <Grid container justifyContent={"center"} alignItems={"center"}>
         <Grid
@@ -91,7 +111,7 @@ export default function SignUp() {
                 },
               ]}
               hasFeedback
-              style={{width:"100%"}}
+              style={{ width: "100%" }}
             >
               <Input.Password />
             </Form.Item>
@@ -101,8 +121,7 @@ export default function SignUp() {
               label="Confirm Password"
               dependencies={["password"]}
               hasFeedback
-              style={{width:"100%"}}
-
+              style={{ width: "100%" }}
               rules={[
                 {
                   required: true,
@@ -125,21 +144,16 @@ export default function SignUp() {
               <Input.Password />
             </Form.Item>
 
-        
-
-         
             <Form.Item style={{ width: "100%" }}>
               <Button
                 type="primary"
                 htmlType="submit"
-                style={{width:"100%"}}
+                style={{ width: "100%" }}
               >
                 Register
               </Button>
             </Form.Item>
-            <NavLink to="/auth/login">
-              Do you have an account?
-            </NavLink>
+            <NavLink to="/auth/login">Do you have an account?</NavLink>
           </Form>
         </Grid>
       </Grid>
