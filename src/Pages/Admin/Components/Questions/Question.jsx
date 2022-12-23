@@ -1,6 +1,6 @@
 import { Box, Grid, Typography } from "@mui/material";
 import React, { useState } from "react";
-import { Button, Input, Modal } from "antd";
+import { Button, Input, InputNumber, Modal } from "antd";
 import PropTypes from "prop-types";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
@@ -45,9 +45,18 @@ function a11yProps(index) {
   };
 }
 
+// Data start
+  const initialState = {
+    text:"",
+    maxRate: "",
+    imgUrl:""
+  }
+// Data end
+
 export default function Questions() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [value, setValue] = useState("1");
+  const [data, setData] = useState(initialState)
 
 
 //   Modal Function start
@@ -145,12 +154,17 @@ const [fileList, setFileList] = useState([
                     fileList={fileList}
                     onChange={onChange}
                     onPreview={onPreview}
+                    beforeUpload={() => false}
                   >
                     {fileList.length < 5 && "+ Upload"}
                   </Upload>
                 </ImgCrop>
               </TabPanel>
-          
+              <Box sx={{mt:3}}>
+              <Typography>Max Rate</Typography>
+              <InputNumber type={"number"} min={1} max={10} style={{width:"100%"}}/>
+              </Box>
+            
             </Box>
           </Modal>
         </Grid>
