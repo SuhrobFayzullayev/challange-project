@@ -1,4 +1,4 @@
-import { React, useState } from "react";
+import { React, useEffect, useState } from "react";
 import dayjs from "dayjs";
 import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
@@ -12,47 +12,71 @@ const initialState = {
   day: "",
   month: "",
   year: "",
-  minute: "",
-  second: "",
-  hour: "",
+  time: "",
+  totalDay: "",
 };
 
 export default function Dashboard() {
   const [value, setValue] = useState(dayjs());
   const [calendar, setCalendar] = useState(initialState);
 
-  const minDate = new Date();
-
-  const date = {
-    day: minDate.getDate(),
-    month: minDate.getMonth(),
-    year: minDate.getFullYear(),
-    minute: minDate.getMinutes(),
-    second: minDate.getSeconds(),
-    hour: minDate.getHours(),
-  };
-
   const handleChange = (newValue) => {
     setValue(newValue);
-    setCalendar({
-      day: newValue.$D,
-      month: newValue.$M + 1,
-      year: newValue.$y,
-      minute: date.minute,
-      second: date.second,
-      hour: date.hour,
-    });
+    let textMonth = [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
+    ];
 
-    const getCalendarUrl = "https://challange.onrender.com/api/v1/calendars" 
-    try {
-      axios.get(getCalendarUrl).then(res => console.log(res.data))
-    } catch (error) {
-      
-    }
-    axios.get(getCalendarUrl)
+    const deadline = `${textMonth[newValue.$M]}, ${newValue.$D}, ${
+      newValue.$y
+    }, ${newValue.$H}:${newValue.$m}`;
+    const time = Date.parse(deadline) - Date.now();
+
+    setCalendar({
+      totalDay: Math.floor(time / (1000 * 60 * 60 * 24)) + 1,
+      day: newValue.$D,
+      month: textMonth[newValue.$M],
+      year: newValue.$y,
+      time: `${newValue.$H}:${newValue.$m}`,
+    });
   };
 
-
+  useEffect(() => {
+    let { day, month, year } = calendar;
+    if (day && month && year) {
+      try {
+        axios
+          .patch(
+            "https://challange.onrender.com/api/v1/calendars/3",
+            calendar,
+            {
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+              },
+            }
+          )
+          .then((res) => {
+            localStorage.setItem(
+              "calendar",
+              JSON.stringify(res.data.data.updatedCalendar)
+            );
+            window.location.reload();
+          });
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  }, [calendar]);
 
   return (
     <div>
@@ -71,7 +95,7 @@ export default function Dashboard() {
                 <DesktopDatePicker
                   label="Date desktop"
                   inputFormat="MM/DD/YYYY"
-                  minDate={new Date().setDate(date.day + 10)}
+                  minDate={new Date().setDate(new Date().getDate() + 10)}
                   value={value}
                   onChange={handleChange}
                   PopperProps={{
