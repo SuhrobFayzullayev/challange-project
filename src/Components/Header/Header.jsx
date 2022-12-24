@@ -12,6 +12,8 @@ import {
 import { NavLink } from "react-router-dom";
 import LoginSharpIcon from "@mui/icons-material/LoginSharp";
 import NotificationsIcon from "@mui/icons-material/Notifications";
+
+const userRole = JSON.parse(localStorage.getItem("user"));
 export default function Header() {
   const [userName, setUserName] = useState("");
   useEffect(() => {
@@ -108,6 +110,7 @@ export default function Header() {
               <Avatar src="" children="S" />
               <Typography variant="h6" component="div" mx={1}>
                 {userName[0]?.user?.username}
+                {userRole.username}
               </Typography>
             </Box>
             <NavLink
@@ -117,8 +120,12 @@ export default function Header() {
                 display: "flex",
                 alignItems: "center",
               }}
-              to="/auth/login"
-              onClick={() => localStorage.clear()}
+              to="/"
+              onClick={() => {
+                localStorage.removeItem("user");
+                localStorage.removeItem("token");
+                window.location.reload();
+              }}
             >
               <LoginSharpIcon sx={{ mr: 1 }} />
             </NavLink>

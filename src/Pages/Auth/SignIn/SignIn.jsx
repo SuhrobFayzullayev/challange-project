@@ -2,10 +2,13 @@ import { Box, Grid, Typography } from "@mui/material";
 import { Button, Form, Input } from "antd";
 import axios from "axios";
 import React from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 export default function SignIn() {
+<<<<<<< HEAD
   const navigate = useNavigate();
+=======
+>>>>>>> e7d808bf5abc05334b20c646a3941b635cd0b439
   const onFinish = (values) => {
     const data = {
       email: values.email,
@@ -15,12 +18,21 @@ export default function SignIn() {
     axios
       .post("https://challange.onrender.com/api/v1/auth/login", data)
       .then((res) => {
+<<<<<<< HEAD
         let arr = [];
         arr.push(res.data.data);
         if (res.status === 200) {
           localStorage.setItem("token", res.data.data.jwt);
           localStorage.setItem("user", JSON.stringify(arr));
           navigate("/user");
+=======
+        console.log(res);
+
+        if (res.status === 200) {
+          localStorage.setItem("token", res.data.data.jwt);
+          localStorage.setItem("user", JSON.stringify(res.data.data.user));
+          window.location.reload();
+>>>>>>> e7d808bf5abc05334b20c646a3941b635cd0b439
         } else {
           console.log(res.data.message);
         }

@@ -2,6 +2,8 @@ import { Avatar, Box, Typography } from "@mui/material";
 import React from "react";
 
 export default function Home() {
+  const userRole = JSON.parse(localStorage.getItem("user"));
+
   return (
     <Box
       height={250}
@@ -30,7 +32,9 @@ export default function Home() {
         p={1}
       >
         <Box mt={3} sx={{ display: "flex", justifyContent: "center" }}>
-          <Typography variant="h6">Suhrob Fayzullayev</Typography>
+          <Typography variant="h6">
+            {userRole.username}
+          </Typography>
         </Box>
         <Box
           sx={{
@@ -42,7 +46,10 @@ export default function Home() {
             <Typography ml={1} variant="p" component="span">
               Tournament
             </Typography>
-            <Box px={1} sx={{ display: "flex", justifyContent: "space-between" }}>
+            <Box
+              px={1}
+              sx={{ display: "flex", justifyContent: "space-between" }}
+            >
               <Typography mt={0.8} variant="p">
                 Place
               </Typography>
@@ -50,7 +57,10 @@ export default function Home() {
                 <span style={{ fontSize: "22px" }}>3</span>rd
               </Typography>
             </Box>
-            <Box px={1} sx={{ display: "flex", justifyContent: "space-between" }}>
+            <Box
+              px={1}
+              sx={{ display: "flex", justifyContent: "space-between" }}
+            >
               <Typography mt={0.8} variant="p">
                 Score
               </Typography>
@@ -59,12 +69,15 @@ export default function Home() {
               </Typography>
             </Box>
           </Box>
-          <Box border={1} height={100} sx={{backgroundColor: "black"}} ></Box>
+          <Box border={1} height={100} sx={{ backgroundColor: "black" }}></Box>
           <Box width={"45%"}>
             <Typography ml={10.5} variant="p" component="span">
               Today's
             </Typography>
-            <Box px={1} sx={{ display: "flex", justifyContent: "space-between" }}>
+            <Box
+              px={1}
+              sx={{ display: "flex", justifyContent: "space-between" }}
+            >
               <Typography mt={0.8} variant="p">
                 Place
               </Typography>
@@ -72,7 +85,10 @@ export default function Home() {
                 <span style={{ fontSize: "22px" }}>3</span>rd
               </Typography>
             </Box>
-            <Box px={1} sx={{ display: "flex", justifyContent: "space-between" }}>
+            <Box
+              px={1}
+              sx={{ display: "flex", justifyContent: "space-between" }}
+            >
               <Typography mt={0.8} variant="p">
                 Score
               </Typography>
