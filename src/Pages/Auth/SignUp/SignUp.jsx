@@ -7,9 +7,30 @@ import { NavLink, useNavigate } from "react-router-dom";
 export default function SignUp() {
   const [data, setData] = useState({});
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const onFinish = (values) => {
+<<<<<<< HEAD
+    const data = {
+      username: values.username,
+      email: values.email,
+      password: values.password,
+    };
+    axios
+      .post("https://challange.onrender.com/api/v1/auth/register", data)
+      .then((res) => {
+        console.log(res);
+        let arr = []
+        arr.push(res.data.data)
+        if (res.status === 201) {
+          localStorage.setItem("token", res.data.data.jwt);
+          localStorage.setItem("user", JSON.stringify(arr));
+          navigate("/user");
+        } else {
+          alert(res.data.message);
+        }
+      });
+=======
       const data = {
         username: values.username,
         email: values.email,
@@ -19,19 +40,24 @@ export default function SignUp() {
         .post("https://challange.onrender.com/api/v1/auth/register", data)
         .then((res) => {
           if (res.status === 201) {
+            console.log(res);
+            localStorage.setItem("token", res.data.data.jwt)
+            localStorage.setItem("user", JSON.stringify(res.data.data))
+            window.location.reload()
+
             
             navigate("/auth/login")
           }else {
             alert(res.data.message)
           }
         });
+>>>>>>> e7d808bf5abc05334b20c646a3941b635cd0b439
   };
 
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
 
-  console.log(data);
   return (
     <Box
       sx={{ backgroundColor: "aqua", height: "100vh", padding: "70px 30px" }}

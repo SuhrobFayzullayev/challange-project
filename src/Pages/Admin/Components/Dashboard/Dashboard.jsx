@@ -1,4 +1,4 @@
-import { React, useState } from "react";
+import { React, useEffect, useState } from "react";
 import dayjs from "dayjs";
 import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
@@ -6,14 +6,14 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DesktopDatePicker } from "@mui/x-date-pickers";
 import { Box, Grid, Typography } from "@mui/material";
+import axios from "axios";
 
 const initialState = {
   day: "",
   month: "",
   year: "",
-  minute: "",
-  second: "",
-  hour: "",
+  time: "",
+  totalDay: "",
 };
 
 export default function Dashboard() {
@@ -33,25 +33,73 @@ export default function Dashboard() {
 
 
   const handleChange = (newValue) => {
-    console.log(newValue);
     setValue(newValue);
+    let textMonth = [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
+    ];
+
+    const deadline = `${textMonth[newValue.$M]}, ${newValue.$D}, ${
+      newValue.$y
+    }, ${newValue.$H}:${newValue.$m}`;
+    const time = Date.parse(deadline) - Date.now();
+
     setCalendar({
+      totalDay: Math.floor(time / (1000 * 60 * 60 * 24)) + 1,
       day: newValue.$D,
-      month: newValue.$M + 1,
+      month: textMonth[newValue.$M],
       year: newValue.$y,
-      minute: date.minute,
-      second: date.second,
-      hour: date.hour,
+      time: `${newValue.$H}:${newValue.$m}`,
     });
   };
 
   console.log(calendar);
 
+  useEffect(() => {
+    let { day, month, year } = calendar;
+    if (day && month && year) {
+      try {
+        axios
+          .patch(
+            "https://challange.onrender.com/api/v1/calendars/3",
+            calendar,
+            {
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+              },
+            }
+          )
+          .then((res) => {
+            localStorage.setItem(
+              "calendar",
+              JSON.stringify(res.data.data.updatedCalendar)
+            );
+            window.location.reload();
+          });
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  }, [calendar]);
 
   return (
     <div>
       <Box>
-        <Typography variant="h4" component={"h4"} sx={{ textAlign: "center", mt:4 }}>
+        <Typography
+          variant="h4"
+          component={"h4"}
+          sx={{ textAlign: "center", mt: 4 }}
+        >
           Select a calendar
         </Typography>
         <Grid container justifyContent={"center"} mt={8}>
@@ -61,7 +109,7 @@ export default function Dashboard() {
                 <DesktopDatePicker
                   label="Date desktop"
                   inputFormat="MM/DD/YYYY"
-                  minDate={new Date().setDate(date.day + 10)}
+                  minDate={new Date().setDate(new Date().getDate() + 10)}
                   value={value}
                   onChange={handleChange}
                   PopperProps={{

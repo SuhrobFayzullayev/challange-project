@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   AppBar,
   Container,
@@ -12,7 +12,16 @@ import {
 import { NavLink } from "react-router-dom";
 import LoginSharpIcon from "@mui/icons-material/LoginSharp";
 import NotificationsIcon from "@mui/icons-material/Notifications";
+
+const userRole = JSON.parse(localStorage.getItem("user"));
 export default function Header() {
+  const [userName, setUserName] = useState("");
+  useEffect(() => {
+    if (localStorage.getItem("user")) {
+      setUserName(JSON.parse(localStorage.getItem("user")));
+    }
+  }, []);
+  console.log(userName);
   return (
     <AppBar position="sticky">
       <Container maxWidth="lg">
@@ -100,7 +109,8 @@ export default function Header() {
               </IconButton>
               <Avatar src="" children="S" />
               <Typography variant="h6" component="div" mx={1}>
-                Suhrob
+                {userName[0]?.user?.username}
+                {userRole.username}
               </Typography>
             </Box>
             <NavLink
@@ -110,7 +120,12 @@ export default function Header() {
                 display: "flex",
                 alignItems: "center",
               }}
-              to="/auth/login"
+              to="/"
+              onClick={() => {
+                localStorage.removeItem("user");
+                localStorage.removeItem("token");
+                window.location.reload();
+              }}
             >
               <LoginSharpIcon sx={{ mr: 1 }} />
             </NavLink>
