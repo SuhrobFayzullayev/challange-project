@@ -31,7 +31,6 @@ export default function Dashboard() {
     hour: minDate.getHours(),
   };
 
-  console.log(minDate);
 
   const handleChange = (newValue) => {
     console.log(newValue);
@@ -48,7 +47,6 @@ export default function Dashboard() {
 
   console.log(calendar);
 
-  console.log(new Date());
 
   return (
     <div>
