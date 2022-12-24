@@ -20,6 +20,18 @@ export default function Dashboard() {
   const [value, setValue] = useState(dayjs());
   const [calendar, setCalendar] = useState(initialState);
 
+  const minDate = new Date();
+
+  const date = {
+    day: minDate.getDate(),
+    month: minDate.getMonth(),
+    year: minDate.getFullYear(),
+    minute: minDate.getMinutes(),
+    second: minDate.getSeconds(),
+    hour: minDate.getHours(),
+  };
+
+
   const handleChange = (newValue) => {
     setValue(newValue);
     let textMonth = [
@@ -50,6 +62,8 @@ export default function Dashboard() {
       time: `${newValue.$H}:${newValue.$m}`,
     });
   };
+
+  console.log(calendar);
 
   useEffect(() => {
     let { day, month, year } = calendar;

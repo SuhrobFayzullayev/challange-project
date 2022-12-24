@@ -1,6 +1,6 @@
 import { CssBaseline } from "@mui/material";
-import { useEffect, useState } from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Routes, Route, Navigate, json } from "react-router-dom";
 import Layout from "./Components/Layout";
 import DailyTournament from "./Pages/ActiveUser/DailyTournament/DailyTournament";
 import Home from "./Pages/ActiveUser/Home";
@@ -14,10 +14,13 @@ import SignIn from "./Pages/Auth/SignIn";
 import SignUp from "./Pages/Auth/SignUp";
 import InActiveUser from "./Pages/InAvtiveUser";
 function App() {
+
   const token = localStorage.getItem("token");
   const userRole = JSON.parse(localStorage.getItem("user"));
 
   console.log(userRole , "Bu userRole");
+
+
   return (
     <div className="App">
       <CssBaseline />

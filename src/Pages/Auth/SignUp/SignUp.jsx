@@ -6,9 +6,10 @@ import { NavLink, useNavigate } from "react-router-dom";
 
 export default function SignUp() {
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const onFinish = (values) => {
+
       const data = {
         username: values.username,
         email: values.email,

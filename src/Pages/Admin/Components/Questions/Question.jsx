@@ -23,7 +23,7 @@ function TabPanel(props) {
     >
       {value === index && (
         <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
+          <Typography variant="div" component={"div"}>{children}</Typography>
         </Box>
       )}
     </div>
@@ -55,7 +55,7 @@ function a11yProps(index) {
 
 export default function Questions() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [value, setValue] = useState("1");
+  const [value, setValue] = useState(0);
   const [data, setData] = useState(initialState)
 
 
@@ -79,14 +79,7 @@ export default function Questions() {
 //   Modal Function end
 
 // Image Upload start
-const [fileList, setFileList] = useState([
-    {
-      uid: '-1',
-      name: 'image',
-      status: 'done',
-      url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Image_created_with_a_mobile_phone.png/640px-Image_created_with_a_mobile_phone.png',
-    },
-  ]);
+const [fileList, setFileList] = useState([]);
   const onChange = ({ fileList: newFileList }) => {
     setFileList(newFileList);
   };
@@ -149,14 +142,14 @@ const [fileList, setFileList] = useState([
               <TabPanel value={value} index={1}>
                 <ImgCrop rotate>
                   <Upload
-                    action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+                    action=""
                     listType="picture-card"
                     fileList={fileList}
                     onChange={onChange}
                     onPreview={onPreview}
                     beforeUpload={() => false}
                   >
-                    {fileList.length < 5 && "+ Upload"}
+                    {fileList.length <= 0  && "+ Upload"}
                   </Upload>
                 </ImgCrop>
               </TabPanel>
