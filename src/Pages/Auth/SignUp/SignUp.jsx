@@ -5,7 +5,6 @@ import React, { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 
 export default function SignUp() {
-  const [data, setData] = useState({});
 
   const navigate = useNavigate()
 
