@@ -89,7 +89,7 @@ export default function AdminLayout() {
     },
     {
       title: "To-do",
-      path: "/dashboard/todo",
+      path: "/dashboard/todo/today",
     },
     {
       title: "Question",

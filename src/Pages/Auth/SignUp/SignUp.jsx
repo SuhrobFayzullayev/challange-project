@@ -5,31 +5,27 @@ import React, { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 
 export default function SignUp() {
-
   const navigate = useNavigate();
 
   const onFinish = (values) => {
+    const data = {
+      username: values.username,
+      email: values.email,
+      password: values.password,
+    };
+    axios
+      .post("https://challange.onrender.com/api/v1/auth/register", data)
+      .then((res) => {
+        if (res.status === 201) {
+          localStorage.setItem("token", res.data.data.jwt);
+          localStorage.setItem("user", JSON.stringify(res.data.data));
 
-      const data = {
-        username: values.username,
-        email: values.email,
-        password: values.password,
-      };
-      axios
-        .post("https://challange.onrender.com/api/v1/auth/register", data)
-        .then((res) => {
-          if (res.status === 201) {
-            console.log(res);
-            localStorage.setItem("token", res.data.data.jwt)
-            localStorage.setItem("user", JSON.stringify(res.data.data))
-            window.location.reload()
-
-            
-            navigate("/auth/login")
-          }else {
-            alert(res.data.message)
-          }
-        });
+          navigate("/auth/login");
+          window.location.reload();
+        } else {
+          alert(res.data.message);
+        }
+      });
   };
 
   const onFinishFailed = (errorInfo) => {

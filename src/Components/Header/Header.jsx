@@ -12,16 +12,38 @@ import {
 import { NavLink } from "react-router-dom";
 import LoginSharpIcon from "@mui/icons-material/LoginSharp";
 import NotificationsIcon from "@mui/icons-material/Notifications";
-
+import { notification } from "antd";
 const userRole = JSON.parse(localStorage.getItem("user"));
 export default function Header() {
   const [userName, setUserName] = useState("");
+  const [newFeedback, setNewFeedback] = useState(false);
+  let feedback = JSON.parse(localStorage.getItem("feedback"));
+
   useEffect(() => {
+    if (feedback !== null) {
+      setNewFeedback(true);
+    }
+
     if (localStorage.getItem("user")) {
       setUserName(JSON.parse(localStorage.getItem("user")));
     }
   }, []);
-  console.log(userName);
+
+  const openNotification = () => {
+    if (feedback !== null) {
+      notification.open({
+        message: "New Feedback",
+        description: feedback,
+        onClick: () => {
+          console.log("Notification Clicked!");
+        },
+      });
+      setNewFeedback(false);
+      localStorage.removeItem("feedback")
+      localStorage.setItem("removeFeedback", JSON.stringify(true))
+    }
+  };
+
   return (
     <AppBar position="sticky">
       <Container maxWidth="lg">
@@ -102,8 +124,13 @@ export default function Header() {
                 alignItems: "center",
               }}
             >
-              <IconButton size="large" color="inherit" sx={{ mr: 2 }}>
-                <Badge badgeContent={7} color="error">
+              <IconButton
+                onClick={openNotification}
+                size="large"
+                color="inherit"
+                sx={{ mr: 2 }}
+              >
+                <Badge badgeContent={(newFeedback && 1) || null} color="error">
                   <NotificationsIcon />
                 </Badge>
               </IconButton>

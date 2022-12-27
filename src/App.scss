@@ -1,5 +1,8 @@
-body{
-  display: flex;
-  justify-content: space-between;
-  // align-items: ;
+.ant-upload-list-item {
+  margin-top: 0px !important;
+}
+
+.ant-notification {
+  z-index: 5 !important;
+  top: 80px !important;
 }
